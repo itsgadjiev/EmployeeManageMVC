@@ -1,4 +1,4 @@
-﻿@model EmployeeAddViewModel
+﻿@model EmployeeUpdateViewModel
 
 <div class="row">
     <div class="col-sm-12">
@@ -6,10 +6,10 @@
             <div class="float-end">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a asp-controller="product" asp-action="index">Products</a></li>
-                    <li class="breadcrumb-item active">Add Product</li>
+                    <li class="breadcrumb-item active">Update Employee</li>
                 </ol>
             </div>
-            <h4 class="page-title">Add product</h4>
+            <h4 class="page-title">Update Employee</h4>
         </div><!--end page-title-box-->
     </div><!--end col-->
 </div>
@@ -55,7 +55,7 @@
                                 <input class="form-control" asp-for="PIN">
                                 <span asp-validation-for="PIN" class="invalid-feedback" style="display:block"></span>
                             </div>
-                        </div
+                        </div>
 
                         <div class="col-md-4">
                             <div class="mb-3">
@@ -70,13 +70,22 @@
                                 <span asp-validation-for="DepartmentId" class="invalid-feedback" style="display:block"></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="row">
+                             <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Employee's photo</label>
-                                <input type="file" asp-for="Image" class="form-control" style="width:150px; height:150px;" >
+                                <input type="file" asp-for="Image" class="form-control" >
                                 <span asp-validation-for="Image" class="invalid-feedback" style="display:block"></span>
                             </div>
                         </div>
+                        <div class="col-md-6" style="border:1px solid black;">
+                            <div class="mb-3">
+                                <label class="text-danger">Employee's previous photo</label>
+                                <img src="~/uploads/@Model.ImageURL"  style="width:100%; height:200px;"/>
+                            </div>
+                        </div>
+                        </div>
+                       
                     </div>
                 </form>
             </div>
