@@ -134,15 +134,17 @@ namespace UserManagemant.Controllers
         public IActionResult Update(EmployeeUpdateViewModel exEmployeeUpdateViewModel)
         {
             exEmployeeUpdateViewModel.Departments = _appDbContext.Departments.ToList();
-            if (!ModelState.IsValid)
-                return View(exEmployeeUpdateViewModel);
-
 
             var updatedEmployee = _appDbContext.Employees.FirstOrDefault(x => x.UserCode == exEmployeeUpdateViewModel.UserCode);
             if (updatedEmployee is null) { return NotFound(); }
 
             string exImageUrl = updatedEmployee.ImageURL;
 
+            if (!ModelState.IsValid)
+            {
+                exEmployeeUpdateViewModel.ImageURL = updatedEmployee.ImageURL;
+                return View(exEmployeeUpdateViewModel);
+            }
 
             updatedEmployee.Surname = exEmployeeUpdateViewModel.Surname;
             updatedEmployee.FatherName = exEmployeeUpdateViewModel.FatherName;
@@ -170,8 +172,6 @@ namespace UserManagemant.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
         [HttpGet("admin/employees/delete/{userCode}")]
 
         public IActionResult Delete(string userCode)
@@ -185,10 +185,5 @@ namespace UserManagemant.Controllers
             return RedirectToAction(nameof(Index));
 
         }
-
-
-
-
-
     }
 }
