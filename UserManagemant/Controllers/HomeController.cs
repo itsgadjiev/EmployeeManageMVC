@@ -81,7 +81,11 @@ namespace UserManagemant.Controllers
         [HttpPost("admin/employees/add")]
         public IActionResult Add(EmployeeAddViewModel employeeAddVM)
         {
-            if (!ModelState.IsValid) { return View(employeeAddVM); }
+            if (!ModelState.IsValid) 
+            {
+                employeeAddVM.Departments = _appDbContext.Departments.ToList();
+                return View(employeeAddVM); 
+            }
 
             Employee employee = new Employee
             {

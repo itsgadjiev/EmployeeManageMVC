@@ -1,18 +1,18 @@
-﻿using UserManagemant.Database.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using UserManagemant.Database.Models;
+using UserManagemant.Validations;
 
 namespace UserManagemant.ViewModels.Employees
 {
-    public class EmployeeAddViewModel
+    public class EmployeeAddViewModel:BaseEmployeeViewModel
     {
-        
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string FatherName { get; set; }
-        public string PIN { get; set; }
-        public string Email { get; set; }
+        [Required]
         public IFormFile Image { get; set; }
+        [Required]
         public int DepartmentId { get; set; }
         public List<Department> Departments { get; set; }
+
+        public bool IsDeleted { get; set; }
 
 
     }

@@ -73,7 +73,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label>Employee's photo</label>
-                                <input type="file" asp-for="Image" class="form-control" style="width:150px; height:150px;" >
+                                <input type="file" asp-for="Image" class="form-control"  >
                                 <span asp-validation-for="Image" class="invalid-feedback" style="display:block"></span>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
             <div class="card-body">
                 <div class="form-group mt-3">
                     <button class="btn btn-primary" type="submit" form="submit-form">Save</button>
-                    <a asp-controller="product" asp-action="index" class="btn btn-danger">Cancel</a>
+                    <a asp-controller="home" asp-action="index" class="btn btn-danger">Cancel</a>
                 </div>
             </div>
         </div>
