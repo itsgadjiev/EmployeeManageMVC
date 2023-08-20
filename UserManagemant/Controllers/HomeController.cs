@@ -156,7 +156,7 @@ namespace UserManagemant.Controllers
             updatedEmployee.Name = exEmployeeUpdateViewModel.Name;
             updatedEmployee.Email = exEmployeeUpdateViewModel.Email;    
             updatedEmployee.DepartmentId = exEmployeeUpdateViewModel.DepartmentId;
-            updatedEmployee.PIN = updatedEmployee.PIN;
+            updatedEmployee.PIN = exEmployeeUpdateViewModel.PIN;
             updatedEmployee.UserCode = exEmployeeUpdateViewModel.UserCode;
 
 
