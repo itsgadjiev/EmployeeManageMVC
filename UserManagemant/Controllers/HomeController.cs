@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using UserManagemant.Database;
 using UserManagemant.Database.Models;
 using UserManagemant.Models;
@@ -114,18 +115,22 @@ namespace UserManagemant.Controllers
             var updatedEmployee = _appDbContext.Employees.FirstOrDefault(x => x.UserCode == userCode);
             if (updatedEmployee is null) { return NotFound(); }
 
-            EmployeeUpdateViewModel employeeUpdateViewModel = new EmployeeUpdateViewModel
-            {
-                DepartmentId = updatedEmployee.DepartmentId,
-                Name = updatedEmployee.Name,
-                Email = updatedEmployee.Email,
-                FatherName = updatedEmployee.FatherName,
-                ImageURL = updatedEmployee.ImageURL,
-                PIN = updatedEmployee.PIN,
-                Surname = updatedEmployee.Surname,
-                Departments = _appDbContext.Departments.ToList()
+            EmployeeUpdateViewModel employeeUpdateViewModel = new EmployeeUpdateViewModel();
 
-            };
+            Type employeeType = typeof(Employee);
+            Type viewModelType = typeof(EmployeeUpdateViewModel);
+
+            foreach (PropertyInfo employeeProperty in employeeType.GetProperties())
+            {
+                PropertyInfo viewModelProperty = viewModelType.GetProperty(employeeProperty.Name);
+
+                if (viewModelProperty != null && viewModelProperty.CanWrite)
+                {
+                    viewModelProperty.SetValue(employeeUpdateViewModel, employeeProperty.GetValue(updatedEmployee));
+                }
+            }
+
+            employeeUpdateViewModel.Departments = _appDbContext.Departments.ToList();
 
             return View(employeeUpdateViewModel);
         }
