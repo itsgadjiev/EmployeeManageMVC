@@ -81,7 +81,7 @@
             </div><!--end topbar-left-->
             <!--end logo-->
             <div class="menu-body navbar-vertical tab-content" data-simplebar>
-                <div id="MetricaDashboard" class="main-icon-menu-pane tab-pane" role="tabpanel"
+                <div id="MetricaDashboard" class="main-icon-menu-pane tab-pane active" role="tabpanel"
                      aria-labelledby="dasboard-tab">
                     <div class="title-box">
                         <h6 class="menu-title">Dashboard</h6>
@@ -89,25 +89,21 @@
 
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link">Analytics</a>
+                            <a class="nav-link" asp-action="index" asp-controller="home">Employees</a>
                         </li><!--end nav-item-->
                         <li class="nav-item">
-                            <a class="nav-link" href="crypto-index.html">Crypto</a>
+                            <a class="nav-link" asp-action="deletedIndex" asp-controller="home">Deleted Employees</a>
                         </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="crm-index.html">CRM</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="projects-index.html">Project</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="ecommerce-index.html">Ecommerce</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="helpdesk-index.html">Helpdesk</a>
-                        </li><!--end nav-item-->
-                        <li class="nav-item">
-                            <a class="nav-link" href="hospital-index.html">Hospital</a>
+
+                    </ul><!--end nav-->
+
+
+                    <div class="title-box">
+                        <h6 class="menu-title">Departments</h6>
+                    </div>
+                     <ul class="nav flex-column">
+                      <li class="nav-item">
+                            <a class="nav-link" asp-action="index" asp-controller="department">All Departments</a>
                         </li><!--end nav-item-->
                     </ul><!--end nav-->
                 </div><!-- end Dashboards -->

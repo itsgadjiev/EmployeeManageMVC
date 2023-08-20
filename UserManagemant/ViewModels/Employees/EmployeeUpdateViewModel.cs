@@ -15,6 +15,7 @@ namespace UserManagemant.ViewModels.Employees
 
         public int DepartmentId { get; set; }
         public List<Department> Departments { get; set; }
+        public bool isDeleted { get; set; }
 
 
     }

@@ -1,0 +1,49 @@
+﻿@using UserManagemant.ViewModels.Departments
+@model DepartmentUpdateViewModel
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="float-end">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="deparment" asp-action="update">Department</a></li>
+                    <li class="breadcrumb-item active">Add Department</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Add Department</h4>
+        </div><!--end page-title-box-->
+    </div><!--end col-->
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form enctype="multipart/form-data" method="POST" asp-controller="department" asp-action="update" id="submit-form">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label asp-for="Name"></label>
+                                <input class="form-control" asp-for="Name">
+                                <span asp-validation-for="Name" class="invalid-feedback" style="display:block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group mt-3">
+                    <button class="btn btn-primary" type="submit" form="submit-form">Save</button>
+                    <a asp-controller="product" asp-action="index" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -37,11 +37,35 @@ namespace UserManagemant.Controllers
                 UserCode = e.UserCode,
                 IsDeleted = e.isDeleted
             })
-            .OrderBy(x => x.IsDeleted)
+            .Where(x => !x.IsDeleted)
             .ToList();
 
             return View(productViewModels);
         }
+
+        public IActionResult DeletedIndex()
+        {
+
+            var productViewModels = _appDbContext.Employees
+            .Select(e => new EmployeeListViewModel
+            {
+                Email = e.Email,
+                Department = e.Department,
+                DepartmentId = e.DepartmentId,
+                FatherName = e.FatherName,
+                ImageURL = e.ImageURL,
+                Name = e.Name,
+                PIN = e.PIN,
+                Surname = e.Surname,
+                UserCode = e.UserCode,
+                IsDeleted = e.isDeleted
+            })
+            .Where(x => x.IsDeleted)
+            .ToList();
+
+            return View(productViewModels);
+        }
+
 
         [HttpGet("admin/employees/add")]
         public IActionResult Add()
@@ -105,39 +129,46 @@ namespace UserManagemant.Controllers
         [HttpPost("admin/employees/update/{userCode}")]
         public IActionResult Update(EmployeeUpdateViewModel exEmployeeUpdateViewModel)
         {
+            exEmployeeUpdateViewModel.Departments = _appDbContext.Departments.ToList();
             if (!ModelState.IsValid)
                 return View(exEmployeeUpdateViewModel);
+
 
             var updatedEmployee = _appDbContext.Employees.FirstOrDefault(x => x.UserCode == exEmployeeUpdateViewModel.UserCode);
             if (updatedEmployee is null) { return NotFound(); }
 
-            string exImageUrl = exEmployeeUpdateViewModel.ImageURL;
+            string exImageUrl = updatedEmployee.ImageURL;
 
 
             updatedEmployee.Surname = exEmployeeUpdateViewModel.Surname;
             updatedEmployee.FatherName = exEmployeeUpdateViewModel.FatherName;
             updatedEmployee.Name = exEmployeeUpdateViewModel.Name;
+            updatedEmployee.Email = exEmployeeUpdateViewModel.Email;    
+            updatedEmployee.DepartmentId = exEmployeeUpdateViewModel.DepartmentId;
+            updatedEmployee.PIN = updatedEmployee.PIN;
+            updatedEmployee.UserCode = exEmployeeUpdateViewModel.UserCode;
 
 
-            if (employeeUpdateViewModel != null)
+            if (exEmployeeUpdateViewModel.Image != null)
             {
-
+                updatedEmployee.ImageURL = exEmployeeUpdateViewModel.Image.SaveFile(path);
             }
 
+            _appDbContext.SaveChanges();
 
-            if (employeeUpdateViewModel.Image != null && exImageUrl != null)
+            if (exEmployeeUpdateViewModel.Image != null && exImageUrl != null)
             {
                 var prevImageUrl = path + exImageUrl;
                 System.IO.File.Delete(prevImageUrl);
             }
             
 
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
 
 
-        [HttpPost("admin/employees/delete/{userCode}")]
+        [HttpGet("admin/employees/delete/{userCode}")]
 
         public IActionResult Delete(string userCode)
         {
